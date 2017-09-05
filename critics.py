@@ -9,7 +9,7 @@ critics = {
         'Ja, ty i on': 2.5,
         'Nocny sluchacz': 3.0
     },
-    'Gene Saymour': {
+    'Gene Seymour': {
         'Kobieta w blekitnej wodzie': 3.0,
         'Weze w samolocie': 3.5,
         'Cale szczescie': 1.5,
