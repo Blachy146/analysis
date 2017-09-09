@@ -32,11 +32,16 @@ def pearson_distance(preferences, person1, person2):
 
         value = multiplied_person1_person2_prefs_sum - ((person1_pref_sum * person2_pref_sum)/number_of_elems)
         density = sqrt((person1_pow_pref_sum - pow(person1_pref_sum, 2)/number_of_elems) *
-                       person2_pow_pref_sum - pow(person2_pref_sum, 2)/number_of_elems)
+                       (person2_pow_pref_sum - pow(person2_pref_sum, 2)/number_of_elems))
 
         if density == 0:
             return 0
         else:
             return value/density
 
+
+def top_matches(preferences, person, calculator):
+    scores = [(calculator(preferences, person, other_person), other_person) for other_person in preferences if other_person != person]
+    scores.sort(reverse=True)
+    return scores
 
