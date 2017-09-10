@@ -1,7 +1,7 @@
 from critics import critics
-from recomendations import euclidean_distance, pearson_distance, top_matches
+from recomendations import euclidean_distance, pearson_distance, top_matches, get_recommendations
 
-person1 = 'Lisa Rose'
+person1 = 'Toby'
 person2 = 'Gene Seymour'
 
 euclidean_dist = euclidean_distance(critics, person1, person2)
@@ -15,3 +15,10 @@ pearson_distance_top_matches_for_person1 = top_matches(critics, person1, pearson
 
 print('top matches using euclidean distance for {0} = {1}'.format(person1, euclidean_distance_top_matches_for_person1))
 print('top matches using pearson distance for {0} = {1}'.format(person1, pearson_distance_top_matches_for_person1))
+
+euclidean_distance_recommendations_for_person1 = get_recommendations(critics, person1, euclidean_distance)
+pearson_distance_recommendations_for_person1 = get_recommendations(critics, person1, pearson_distance)
+
+print('recommendations using euclidean distance for {0} = {1}'.format(person1, euclidean_distance_recommendations_for_person1))
+print('recommendations using pearson distance for {0} = {1}'.format(person1, pearson_distance_recommendations_for_person1))
+

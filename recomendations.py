@@ -45,3 +45,21 @@ def top_matches(preferences, person, calculator):
     scores.sort(reverse=True)
     return scores
 
+
+def get_recommendations(preferences, person, calculator):
+    totals = {}
+    sim_sums = {}
+    for other_person in preferences:
+        if other_person != person:
+            similarity = calculator(preferences, person, other_person)
+            if similarity > 0:
+                for item in preferences[other_person]:
+                    if item not in preferences[person] or preferences[person][item] == 0:
+                        totals.setdefault(item, 0)
+                        totals[item] += preferences[other_person][item] * similarity
+                        sim_sums.setdefault(item, 0)
+                        sim_sums[item] += similarity
+    rankings = [(total/sim_sums[item], item) for item, total in totals.items()]
+    rankings.sort(reverse=True)
+    return rankings
+
