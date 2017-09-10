@@ -15,7 +15,7 @@ def euclidean_distance(preferences, person1, person2):
         return 1/(1 + sqrt(sum_of_squares))
 
 
-def pearson_distance(preferences, person1, person2):
+def pearson_coefficient(preferences, person1, person2):
     items_in_each = {}
     for item in preferences[person1]:
         if item in preferences[person2]:
@@ -63,3 +63,11 @@ def get_recommendations(preferences, person, calculator):
     rankings.sort(reverse=True)
     return rankings
 
+
+def transform_preferences(preferences):
+    result = {}
+    for person in preferences:
+        for item in preferences[person]:
+            result.setdefault(item, {})
+            result[item][person] = preferences[person][item]
+    return result
