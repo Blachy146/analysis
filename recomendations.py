@@ -71,3 +71,29 @@ def transform_preferences(preferences):
             result.setdefault(item, {})
             result[item][person] = preferences[person][item]
     return result
+
+
+def calculate_similar_items_euclidean(preferences, number_of_similar=10):
+    result = {}
+    item_preferences = transform_preferences(preferences)
+    counter = 0
+    for item in item_preferences:
+        counter += 1
+        if counter % 100 == 0:
+            print('{0} / {1}'.format(counter, len(item_preferences)))
+        scores = top_matches(item_preferences, item, calculator=euclidean_distance)
+        result[item] = scores
+    return result
+
+
+def calculate_similar_items_pearson(preferences, number_of_similar=10):
+    result = {}
+    item_preferences = transform_preferences(preferences)
+    counter = 0
+    for item in item_preferences:
+        counter += 1
+        if counter % 100 == 0:
+            print('{0} / {1}'.format(counter, len(item_preferences)))
+        scores = top_matches(item_preferences, item, calculator=pearson_coefficient)
+        result[item] = scores
+    return result

@@ -1,6 +1,5 @@
 from critics import critics
-from recomendations import euclidean_distance, pearson_coefficient, top_matches, get_recommendations, \
-    transform_preferences
+from recomendations import *
 
 person1 = 'Toby'
 person2 = 'Gene Seymour'
@@ -39,3 +38,9 @@ recommended_critics_for_movie1_pearson_coefficient = get_recommendations(movies,
 
 print('recommended critics for {0} using euclidean_distance = {1}'.format(movie1, recommended_critics_for_movie1_euclidean_distance))
 print('recommended critics for {0} using pearson_coefficient = {1}'.format(movie1, recommended_critics_for_movie1_pearson_coefficient))
+
+similar_items_euclidean = calculate_similar_items_euclidean(critics)
+similar_items_pearson = calculate_similar_items_pearson(critics)
+
+print('similar items for euclidean distance = {0}'.format(similar_items_euclidean))
+print('similar items for pearson coefficient = {0}'.format(similar_items_pearson))
