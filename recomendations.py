@@ -110,6 +110,21 @@ def get_recommended_items(preferences, item_match, user):
                 scores[item2] += similarity * rating
                 total_similarity.setdefault(item2, 0)
                 total_similarity[item2] += similarity
-    rankings = [(score/total_similarity[item], item) for item, score in scores.items()]
+    rankings = [(score/total_similarity[item], item) for item, score in scores.items() if total_similarity[item] != 0]
     rankings.sort(reverse=True)
     return rankings
+
+
+def load_movie_lens(file_name):
+    movies = {}
+    with open(file_name + '/u.item', errors='ignore') as file_item:
+        for line in file_item:
+            item_id, title = line.split('|')[0:2]
+            movies[item_id] = title
+    preferences = {}
+    with open(file_name + '/u.data') as file_data:
+        for line in file_data:
+            user, movie_id, rating, time_stamp = line.split('\t')
+            preferences.setdefault(user, {})
+            preferences[user][movies[movie_id]] = float(rating)
+    return preferences

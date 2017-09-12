@@ -4,6 +4,8 @@ from recomendations import *
 person1 = 'Toby'
 person2 = 'Gene Seymour'
 movie1 = 'Cale szczescie'
+movie_lens_path = '/home/blazej/Downloads/ml-100k'
+lens_user1 = '87'
 
 euclidean_dist = euclidean_distance(critics, person1, person2)
 pearson_dist = pearson_coefficient(critics, person1, person2)
@@ -50,3 +52,25 @@ recomended_items_for_person1_pearson = get_recommended_items(critics, similar_it
 
 print('recomended items for {0} using euclidean distance = {1}'.format(person1, recomended_items_for_person1_euclidean))
 print('recomended items for {0} using pearson coefficient = {1}'.format(person1, recomended_items_for_person1_pearson))
+
+movie_lens = load_movie_lens(movie_lens_path)
+
+print('movie lens user {0} = {1}'.format(lens_user1, movie_lens[lens_user1]))
+
+movie_lens_recomendations_for_lens_user1_euclidean = get_recommendations(movie_lens, lens_user1, euclidean_distance)
+movie_lens_recomendations_for_lens_user1_pearson = get_recommendations(movie_lens, lens_user1, pearson_coefficient)
+
+print('movie lens recommendations for {0} using euclidean = {1}'.format(lens_user1, movie_lens_recomendations_for_lens_user1_euclidean))
+print('movie lens recommendations for {0} using pearson = {1}'.format(lens_user1, movie_lens_recomendations_for_lens_user1_pearson))
+
+movie_lens_similar_items_for_lens_user1_euclidean = calculate_similar_items_euclidean(movie_lens)
+movie_lens_similar_items_for_lens_user1_pearson = calculate_similar_items_pearson(movie_lens)
+
+#print('movie lens similar items for {0} using euclidean = {1}'.format(lens_user1, movie_lens_similar_items_for_lens_user1_euclidean))
+#print('movie lens similar items for {0} using pearson = {1}'.format(lens_user1, movie_lens_similar_items_for_lens_user1_pearson))
+
+movie_lens_recommended_items_for_lens_user1_euclidean = get_recommended_items(movie_lens, movie_lens_similar_items_for_lens_user1_euclidean, lens_user1)[:30]
+movie_lens_recommended_items_for_lens_user1_pearson = get_recommended_items(movie_lens, movie_lens_similar_items_for_lens_user1_pearson, lens_user1)[:30]
+
+print('movie lens recommended items for {0} using euclidean = {1}'.format(lens_user1, movie_lens_recomendations_for_lens_user1_euclidean))
+print('movie lens recommended items for {0} using pearson = {1}'.format(lens_user1, movie_lens_recomendations_for_lens_user1_pearson))
