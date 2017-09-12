@@ -44,3 +44,9 @@ similar_items_pearson = calculate_similar_items_pearson(critics)
 
 print('similar items for euclidean distance = {0}'.format(similar_items_euclidean))
 print('similar items for pearson coefficient = {0}'.format(similar_items_pearson))
+
+recomended_items_for_person1_euclidean = get_recommended_items(critics, similar_items_euclidean, person1)
+recomended_items_for_person1_pearson = get_recommended_items(critics, similar_items_pearson, person1)
+
+print('recomended items for {0} using euclidean distance = {1}'.format(person1, recomended_items_for_person1_euclidean))
+print('recomended items for {0} using pearson coefficient = {1}'.format(person1, recomended_items_for_person1_pearson))

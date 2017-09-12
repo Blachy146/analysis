@@ -73,7 +73,7 @@ def transform_preferences(preferences):
     return result
 
 
-def calculate_similar_items_euclidean(preferences, number_of_similar=10):
+def calculate_similar_items_euclidean(preferences):
     result = {}
     item_preferences = transform_preferences(preferences)
     counter = 0
@@ -86,7 +86,7 @@ def calculate_similar_items_euclidean(preferences, number_of_similar=10):
     return result
 
 
-def calculate_similar_items_pearson(preferences, number_of_similar=10):
+def calculate_similar_items_pearson(preferences):
     result = {}
     item_preferences = transform_preferences(preferences)
     counter = 0
@@ -97,3 +97,19 @@ def calculate_similar_items_pearson(preferences, number_of_similar=10):
         scores = top_matches(item_preferences, item, calculator=pearson_coefficient)
         result[item] = scores
     return result
+
+
+def get_recommended_items(preferences, item_match, user):
+    user_ratings = preferences[user]
+    scores = {}
+    total_similarity = {}
+    for item, rating in user_ratings.items():
+        for similarity, item2 in item_match[item]:
+            if item2 not in user_ratings:
+                scores.setdefault(item2, 0)
+                scores[item2] += similarity * rating
+                total_similarity.setdefault(item2, 0)
+                total_similarity[item2] += similarity
+    rankings = [(score/total_similarity[item], item) for item, score in scores.items()]
+    rankings.sort(reverse=True)
+    return rankings
